@@ -475,26 +475,3 @@ transaction_id, user_id, user_name, spend_date, price, category, description
 
 ---
 
-## License
-
-MIT License - Feel free to use and modify this project.
-
----
-
-## Contributing
-
-Contributions are welcome! Please ensure:
-- Code follows TypeScript standards
-- Calculations are verified mathematically
-- New features maintain backward compatibility
-
----
-
-## Questions & Support
-
-For detailed understanding of any metric or formula, refer to the specific section in this README.
-
----
-
-**Last Updated**: April 2026
-**Version**: 1.0.0
