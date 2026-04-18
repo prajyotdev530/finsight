@@ -13,6 +13,9 @@ A comprehensive financial analytics platform that calculates credit scores, heal
 8. [Project Structure](#project-structure)
 
 ---
+<img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 03 10 PM" src="https://github.com/user-attachments/assets/c5ca56c3-7ab3-41d5-bb26-c186c2a7a9a3" />
+
+
 
 ## Overview
 
