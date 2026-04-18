@@ -184,6 +184,7 @@ $$\text{EMI Regularity} = \frac{\text{Number of Months EMI was Paid}}{\text{Tota
 - Payment history is the largest factor in real credit scores (FICO: 35%)
 
 ---
+<img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 19 56 PM" src="https://github.com/user-attachments/assets/8ef22dfe-1a56-4715-ac3f-a3e79f3ccfc6" />
 
 ### 2. Income Stability (0-100%)
 
@@ -298,6 +299,7 @@ Expenses are categorized (e.g., Food, Transport, Entertainment, EMI, Subscriptio
 - Count: Number of transactions
 - Percentage: % of total spending
 
+
 ### 4. Anomaly Detection
 
 Identifies unusual spending patterns using statistical methods.
@@ -308,7 +310,7 @@ $$\text{Threshold} = \text{Mean} + (2 \times \text{Std Dev})$$
 If transaction amount > threshold:
 - Marked as anomaly
 - Severity: "medium" if > (Mean + 2σ), "high" if > (Mean + 3σ)
-
+<img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 21 43 PM" src="https://github.com/user-attachments/assets/6690139e-ed8d-4f5a-9260-ed1f8adf5c34" />
 ---
 
 ## Formulas & Mathematical Details
