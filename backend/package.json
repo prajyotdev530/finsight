@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build:frontend": "cd ../frontend && npm install && VITE_API_URL=/api npx vite build --outDir ../backend/public/app",
-    "build": "npm run build:frontend && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
