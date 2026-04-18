@@ -159,6 +159,8 @@ $$\text{Credit Estimate} = 300 + (\text{Credit Raw Score} \times 550)$$
 - **EMI Regularity**: 50% weight (most important - payment history)
 - **Income Stability**: 30% weight (income consistency)
 - **Savings Score**: 20% weight (existing financial health)
+<img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 05 16 PM" src="https://github.com/user-attachments/assets/60951e64-46a6-4751-917b-b7d46caaa507" />
+
 
 ---
 
@@ -260,6 +262,8 @@ $$\text{Credit Estimate} = 300 + (0.92 \times 550) = 300 + 506 = 806$$
 ---
 
 ## Key Financial Metrics
+<img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 06 11 PM" src="https://github.com/user-attachments/assets/3df79028-b305-4919-9667-0611c90ac985" />
+
 
 ### 1. Monthly Cash Flow
 
@@ -350,6 +354,7 @@ Measures relative variability - useful for comparing datasets with different sca
 - Health score improvement suggestions
 
 ---
+<img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 06 39 PM" src="https://github.com/user-attachments/assets/7f785b10-ccd4-4c9a-9f7f-b13f95dc0196" />
 
 ## Project Structure
 
