@@ -1,4 +1,4 @@
-# Spending Analytics - Credit & Health Score System
+<img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 07 48 PM" src="https://github.com/user-attachments/assets/67a49d29-4baa-4b5a-8321-3b10dd8a604e" /># Spending Analytics - Credit & Health Score System
 
 A comprehensive financial analytics platform that calculates credit scores, health scores, and provides spending insights through detailed financial metrics and predictions.
 
@@ -15,6 +15,7 @@ A comprehensive financial analytics platform that calculates credit scores, heal
 ---
 <img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 03 10 PM" src="https://github.com/user-attachments/assets/c5ca56c3-7ab3-41d5-bb26-c186c2a7a9a3" />
 
+<img width="1440" height="900" alt="Screenshot 2026-04-18 at 6 08 05 PM" src="https://github.com/user-attachments/assets/73a7f40f-7ed6-4f15-b0dc-e76251e24616" />
 
 
 ## Overview
