@@ -16,9 +16,11 @@ export default function Dashboard() {
   const [categories, setCategories] = useState<any[]>([]);
   const [insights, setInsights] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
+    setError(null);
     Promise.all([
       api.cashflow(selectedUser),
       api.categories(selectedUser),
@@ -27,8 +29,13 @@ export default function Dashboard() {
       setCashflow(cf.data);
       setCategories(cat.data);
       setInsights(ins.data);
+    }).catch((err) => {
+      console.error('[Dashboard] Failed to load data:', err);
+      setError('Unable to load dashboard data. The server may be warming up — please try again.');
     }).finally(() => setLoading(false));
-  }, [selectedUser]);
+  };
+
+  useEffect(() => { fetchData(); }, [selectedUser]);
 
   const latest = cashflow[cashflow.length - 1];
   const prev   = cashflow[cashflow.length - 2];
@@ -48,6 +55,12 @@ export default function Dashboard() {
       <div className="page-body">
         {loading ? (
           <div className="loading-center"><div className="spinner" /></div>
+        ) : error ? (
+          <div className="error-state">
+            <div className="error-icon">⚠️</div>
+            <div className="error-message">{error}</div>
+            <button className="btn btn-primary" onClick={fetchData} id="dashboard-retry">Retry</button>
+          </div>
         ) : (
           <>
             {insights?.predictions && <PredictiveInsights predictions={insights.predictions} />}

@@ -21,9 +21,11 @@ export default function Transactions() {
   const [category, setCategory] = useState('All');
   const [month, setMonth] = useState('All');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(() => {
     setLoading(true);
+    setError(null);
     api.transactions(
       selectedUser, page,
       category !== 'All' ? category : undefined,
@@ -31,6 +33,9 @@ export default function Transactions() {
     ).then(r => {
       setTransactions(r.data.data);
       setTotal(r.data.total);
+    }).catch((err) => {
+      console.error('[Transactions] Failed to load data:', err);
+      setError('Unable to load transactions. The server may be warming up — please try again.');
     }).finally(() => setLoading(false));
   }, [selectedUser, page, category, month]);
 
@@ -65,6 +70,12 @@ export default function Transactions() {
         <div className="card">
           {loading ? (
             <div className="loading-center"><div className="spinner" /></div>
+          ) : error ? (
+            <div className="error-state">
+              <div className="error-icon">⚠️</div>
+              <div className="error-message">{error}</div>
+              <button className="btn btn-primary" onClick={load} id="transactions-retry">Retry</button>
+            </div>
           ) : (
             <div style={{ overflowX: 'auto' }}>
               <table className="transactions-table">

@@ -13,13 +13,21 @@ export default function Insights() {
   const [emiData, setEmiData] = useState<any>({ emis: [], totalMonthlyEMI: 0 });
   const [insights, setInsights] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
+    setError(null);
     Promise.all([api.emi(selectedUser), api.insights(selectedUser)])
       .then(([em, ins]) => { setEmiData(em.data); setInsights(ins.data); })
+      .catch((err) => {
+        console.error('[Insights] Failed to load data:', err);
+        setError('Unable to load insights. The server may be warming up — please try again.');
+      })
       .finally(() => setLoading(false));
-  }, [selectedUser]);
+  };
+
+  useEffect(() => { fetchData(); }, [selectedUser]);
 
   return (
     <div>
@@ -27,6 +35,12 @@ export default function Insights() {
       <div className="page-body">
         {loading ? (
           <div className="loading-center"><div className="spinner" /></div>
+        ) : error ? (
+          <div className="error-state">
+            <div className="error-icon">⚠️</div>
+            <div className="error-message">{error}</div>
+            <button className="btn btn-primary" onClick={fetchData} id="insights-retry">Retry</button>
+          </div>
         ) : (
           <>
             {insights?.predictions && <PredictiveInsights predictions={insights.predictions} />}

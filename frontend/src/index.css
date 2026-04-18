@@ -449,6 +449,30 @@ body {
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-center { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; color: var(--text-secondary); gap: 12px; }
 
+/* Error state */
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 32px;
+  gap: 16px;
+  text-align: center;
+}
+
+.error-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.error-message {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  max-width: 400px;
+  line-height: 1.6;
+}
+
 /* Gauge */
 .gauge-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .gauge-label { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.04em; }

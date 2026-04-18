@@ -4,8 +4,17 @@ import { computeCashFlow } from '../../lib/analytics';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  const { user } = req.query;
-  const data = filterTransactions(user as string);
-  const cashflow = computeCashFlow(data);
-  res.json(cashflow);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
+  try {
+    const { user } = req.query;
+    const data = filterTransactions(user as string);
+    const cashflow = computeCashFlow(data);
+    res.json(cashflow);
+  } catch (err: any) {
+    console.error('[API /cashflow] Error:', err.message);
+    res.status(500).json({ error: 'Failed to compute cashflow', detail: err.message });
+  }
 }

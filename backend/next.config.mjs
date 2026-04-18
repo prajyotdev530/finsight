@@ -12,7 +12,16 @@ const nextConfig = {
         ]
       }
     ];
-  }
+  },
+  async rewrites() {
+    return [
+      // Any path that doesn't start with /api or /_next gets rewritten to the static SPA
+      {
+        source: '/:path((?!api|_next|app).*)',
+        destination: '/app/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

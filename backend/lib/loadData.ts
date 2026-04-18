@@ -3,13 +3,38 @@ import path from 'path';
 import Papa from 'papaparse';
 import { Transaction } from './types';
 
-let cachedData: Transaction[] | null = null;
-
+/**
+ * Loads transactions from the CSV file.
+ * Uses path.join(__dirname, ...) which is reliable in Vercel serverless
+ * (process.cwd() is NOT reliable in serverless environments).
+ */
 export function loadTransactions(): Transaction[] {
-  if (cachedData) return cachedData;
+  // Try multiple path strategies for maximum reliability
+  const pathCandidates = [
+    path.join(__dirname, '..', 'data', 'transactions.csv'),        // relative to compiled lib/
+    path.join(process.cwd(), 'data', 'transactions.csv'),          // fallback: cwd-based
+    path.join(process.cwd(), 'backend', 'data', 'transactions.csv'), // monorepo fallback
+  ];
 
-  const csvPath = path.join(process.cwd(), 'data', 'transactions.csv');
-  const csvContent = fs.readFileSync(csvPath, 'utf-8');
+  let csvContent: string | null = null;
+  let usedPath = '';
+
+  for (const candidate of pathCandidates) {
+    try {
+      if (fs.existsSync(candidate)) {
+        csvContent = fs.readFileSync(candidate, 'utf-8');
+        usedPath = candidate;
+        break;
+      }
+    } catch {
+      // Try next candidate
+    }
+  }
+
+  if (!csvContent) {
+    const tried = pathCandidates.join(', ');
+    throw new Error(`[loadData] transactions.csv not found. Tried: ${tried}`);
+  }
 
   const result = Papa.parse<Transaction>(csvContent, {
     header: true,
@@ -18,12 +43,17 @@ export function loadTransactions(): Transaction[] {
     transformHeader: (h) => h.trim(),
   });
 
-  cachedData = result.data.map((row) => ({
+  if (result.errors.length > 0) {
+    console.warn('[loadData] CSV parse warnings:', result.errors.slice(0, 3));
+  }
+
+  const data = result.data.map((row) => ({
     ...row,
     price: parseFloat(String(row.price)) || 0,
   }));
 
-  return cachedData;
+  console.log(`[loadData] Loaded ${data.length} transactions from ${usedPath}`);
+  return data;
 }
 
 export function getUserIds(): string[] {

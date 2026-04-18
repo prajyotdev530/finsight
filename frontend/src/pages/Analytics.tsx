@@ -39,13 +39,21 @@ export default function Analytics() {
   const [cashflow, setCashflow] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchData = () => {
     setLoading(true);
+    setError(null);
     Promise.all([api.cashflow(selectedUser), api.categories(selectedUser)])
       .then(([cf, cat]) => { setCashflow(cf.data); setCategories(cat.data); })
+      .catch((err) => {
+        console.error('[Analytics] Failed to load data:', err);
+        setError('Unable to load analytics. The server may be warming up — please try again.');
+      })
       .finally(() => setLoading(false));
-  }, [selectedUser]);
+  };
+
+  useEffect(() => { fetchData(); }, [selectedUser]);
 
   const chartData = cashflow.map(d => ({
     ...d,
@@ -62,6 +70,12 @@ export default function Analytics() {
       <div className="page-body">
         {loading ? (
           <div className="loading-center"><div className="spinner" /></div>
+        ) : error ? (
+          <div className="error-state">
+            <div className="error-icon">⚠️</div>
+            <div className="error-message">{error}</div>
+            <button className="btn btn-primary" onClick={fetchData} id="analytics-retry">Retry</button>
+          </div>
         ) : (
           <>
             {/* Hero stat pills */}

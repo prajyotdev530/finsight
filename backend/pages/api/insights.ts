@@ -9,13 +9,22 @@ import {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  const { user } = req.query;
-  const data = filterTransactions(user as string);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
 
-  res.json({
-    anomalies: detectAnomalies(data),
-    subscriptions: detectSubscriptions(data),
-    predictions: computePredictions(data),
-    healthScore: computeHealthScore(data),
-  });
+  try {
+    const { user } = req.query;
+    const data = filterTransactions(user as string);
+
+    res.json({
+      anomalies: detectAnomalies(data),
+      subscriptions: detectSubscriptions(data),
+      predictions: computePredictions(data),
+      healthScore: computeHealthScore(data),
+    });
+  } catch (err: any) {
+    console.error('[API /insights] Error:', err.message);
+    res.status(500).json({ error: 'Failed to compute insights', detail: err.message });
+  }
 }
